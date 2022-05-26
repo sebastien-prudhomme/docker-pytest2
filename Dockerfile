@@ -1,6 +1,7 @@
 FROM python:3.10.4
 
 RUN apt-get update && \
+    apt-get upgrade && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tests
