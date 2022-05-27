@@ -51,6 +51,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug
+        run: echo ${{ steps.metadata.outputs }}
+
       - name: Build and push
         uses: docker/build-push-action@v3.0.0
         if: steps.release.outputs.new_release_published == 'true'
