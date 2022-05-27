@@ -8,9 +8,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions: write-all
-      # contents: write
-      # packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.2
@@ -37,7 +34,7 @@ jobs:
         uses: docker/metadata-action@v4.0.1
         if: steps.release.outputs.new_release_published == 'true'
         with:
-          images: ghcr.io/${{ github.repository_owner }}/pytest
+          images: ghcr.io/${{ github.repository_owner }}/pytest2
           tags: |
             type=raw,value=${{ steps.release.outputs.new_release_version }}
           flavor: |
