@@ -49,14 +49,13 @@ jobs:
         run: pytest -v --image ${{ steps.metadata.outputs.tags }}
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.7.1
         with:
           image-ref: ${{ steps.metadata.outputs.tags }}
           format: sarif
-          ignore-unfixed: true
           output: trivy-results.sarif
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2.10.5
         with:
           sarif_file: trivy-results.sarif
