@@ -54,6 +54,7 @@ jobs:
           image-ref: ${{ steps.metadata.outputs.tags }}
           format: sarif
           output: trivy-results.sarif
+          severity: CRITICAL
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2.1.22
