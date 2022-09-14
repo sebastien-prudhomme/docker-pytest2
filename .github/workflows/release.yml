@@ -19,17 +19,17 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node
-        uses: actions/setup-node@v3.2.0
+        uses: actions/setup-node@v3.4.1
         with:
-          node-version: 18.2.0 # renovate: node
+          node-version: 18.9.0 # renovate: node
 
       - name: Release
         id: release
-        uses: cycjimmy/semantic-release-action@v3.0.0
+        uses: cycjimmy/semantic-release-action@v3.1.1
         with:
-          semantic_version: 19.0.2 # renovate: semantic-release
+          semantic_version: 19.0.5 # renovate: semantic-release
           extra_plugins: |
-            conventional-changelog-conventionalcommits@4.6.3
+            conventional-changelog-conventionalcommits@5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,7 +57,7 @@ jobs:
 
       - name: Build and push
         id: build-push
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.1
         if: steps.release.outputs.new_release_published == 'true'
         with:
           push: true
@@ -65,13 +65,13 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v2.3.0
+        uses: sigstore/cosign-installer@v2.6.0
         if: steps.release.outputs.new_release_published == 'true'
         with:
-          cosign-release: v1.7.2 # renovate: cosign
+          cosign-release: v1.11.1 # renovate: cosign
 
       - name: Sign
-        run: cosign sign ghcr.io/${{ github.repository_owner }}/pytest2@${{ steps.build-push.outputs.digest }}
+        run: cosign sign ghcr.io/${{ github.repository_owner }}/pytest@${{ steps.build-push.outputs.digest }}
         if: steps.release.outputs.new_release_published == 'true'
         env:
           COSIGN_EXPERIMENTAL: true
