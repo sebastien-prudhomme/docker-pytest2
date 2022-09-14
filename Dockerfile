@@ -1,4 +1,4 @@
-FROM python:3.10.4
+FROM python:3.10.7
 
 RUN apt-get update && \
     apt-get upgrade -y && \

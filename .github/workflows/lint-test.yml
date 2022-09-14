@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint
-        uses: github/super-linter@v4.9.2
+        uses: github/super-linter@v4.9.6
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,15 +32,15 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/pytest
 
       - name: Build
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.1
         with:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
 
       - name: Set up Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.2.0
         with:
-          python-version: 3.10.4 # renovate: python
+          python-version: 3.10.7 # renovate: python
 
       - name: Install Python dependencies
         run: pip install -r tests/requirements.txt
