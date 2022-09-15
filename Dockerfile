@@ -1,5 +1,9 @@
 FROM python:3.10.7
 
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /tests
 
 COPY requirements.txt .
